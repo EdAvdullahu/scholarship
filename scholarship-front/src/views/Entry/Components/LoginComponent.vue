@@ -30,6 +30,8 @@
 <script>
 import { mapStores } from "pinia";
 import { useLoginStore } from "@/store/useLoginStore";
+import { ElLoading } from 'element-plus'
+
 export default {
  data() {
   return {
@@ -74,17 +76,25 @@ export default {
   submitForm(form) {
    form.validate((valid) => {
     if (valid) {
-     this.loading = true;
-     console.log("true");
+     const load = ElLoading.service({
+       lock: true,
+       text: 'Loading...',
+       background: 'rgba(0, 0, 0, 0.7)',
+     });
      this.loginStore.logIn().then(() => {
-      this.loading = false;
-      console.log("false");
+       setTimeout(()=>{
+         load.close();
+         this.goHome();
+       },2000)
      });
     } else {
      return false;
     }
    });
   },
+   goHome(){
+    this.$router.push('/home');
+   }
  },
  computed: {
   ...mapStores(useLoginStore),
@@ -93,12 +103,9 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/Variables.css";
+@import "@/assets/Variables.css";
 .main-login {
  display: flex;
  flex-direction: column;
-}
-.demo-ruleForm > .el-form-item__label {
- color: red;
 }
 </style>

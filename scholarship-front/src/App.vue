@@ -3,7 +3,7 @@
 </template>
 
 <style>
-@import "./assets/Variables.css";
+@import "@/assets/Variables.css";
 #app {
  margin: 0;
  padding: 0;

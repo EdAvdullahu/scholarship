@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import LoginComponent from "./LoginComponent.vue";
+import LoginComponent from "./Components/LoginComponent.vue";
 export default {
  components: {
   LoginComponent,
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-@import "../../assets/Variables.css";
+@import '@/assets/Variables.css';
 .main {
  display: flex;
  flex-direction: row;
