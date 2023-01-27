@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
+using Scholarship_back.Outer.Interfaces;
 using Scholarship_back.Outer.Models;
 using System.Data;
 
@@ -18,13 +19,13 @@ namespace Scholarship_back.Outer.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet]
         public async Task<ActionResult<List<FacultyType>>> Get()
         {
             return Ok(await _context.FacultyTypes.ToListAsync());
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost]
         public async Task<ActionResult> CreateFacultyType(FacultyTypeDto request)
         {
@@ -44,5 +45,6 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok("Faculty type was created successfully");
         }
+        
     }
 }

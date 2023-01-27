@@ -12,8 +12,8 @@ using Scholarship_back.Data;
 namespace Scholarship_back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230127175310_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20230127232100_ScholarshipManagement")]
+    partial class ScholarshipManagement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

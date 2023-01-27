@@ -3,7 +3,7 @@ using Scholarship_back.Outer.Models;
 
 namespace Scholarship_back.Data
 {
-    public class DataContext: DbContext
+    public class DataContext: DbContext  
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

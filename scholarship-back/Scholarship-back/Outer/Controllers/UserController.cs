@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
+using Scholarship_back.Outer.Interfaces;
 using Scholarship_back.Outer.Models;
 using Scholarship_back.Outer.Services;
 using System.Data;
@@ -141,7 +142,6 @@ namespace Scholarship_back.Outer.Controllers
             await _context.SaveChangesAsync();
             return await Get();
         }
-
 
         /**/
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
