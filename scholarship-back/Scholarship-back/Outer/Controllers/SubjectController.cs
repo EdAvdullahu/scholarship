@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
 using Scholarship_back.Outer.Models;
@@ -21,7 +22,7 @@ namespace Scholarship_back.Outer.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Subject>>> Get()
         {
-            return Ok(_context.Subjects.ToList());
+            return Ok(await _context.Subjects.ToListAsync());
         }
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]

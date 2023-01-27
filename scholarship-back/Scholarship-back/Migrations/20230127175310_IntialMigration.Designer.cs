@@ -12,8 +12,8 @@ using Scholarship_back.Data;
 namespace Scholarship_back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230126181327_migrationAdd")]
-    partial class migrationAdd
+    [Migration("20230127175310_IntialMigration")]
+    partial class IntialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,13 +102,16 @@ namespace Scholarship_back.Migrations
                     b.ToTable("FacultyTypes");
                 });
 
-            modelBuilder.Entity("Scholarship_back.Outer.Models.Grade", b =>
+            modelBuilder.Entity("Scholarship_back.Outer.Models.GradeStudentSummary", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
@@ -118,32 +121,11 @@ namespace Scholarship_back.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("Grades");
-                });
-
-            modelBuilder.Entity("Scholarship_back.Outer.Models.GradeStudent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("GradeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GradeId");
-
                     b.HasIndex("StudentId");
 
-                    b.ToTable("GradeStudents");
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("GradeStudentSummaries");
                 });
 
             modelBuilder.Entity("Scholarship_back.Outer.Models.HighSchool", b =>
@@ -364,34 +346,23 @@ namespace Scholarship_back.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("Scholarship_back.Outer.Models.Grade", b =>
+            modelBuilder.Entity("Scholarship_back.Outer.Models.GradeStudentSummary", b =>
                 {
-                    b.HasOne("Scholarship_back.Outer.Models.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("Scholarship_back.Outer.Models.GradeStudent", b =>
-                {
-                    b.HasOne("Scholarship_back.Outer.Models.Grade", "Grade")
-                        .WithMany()
-                        .HasForeignKey("GradeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Scholarship_back.Outer.Models.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Grade");
+                    b.HasOne("Scholarship_back.Outer.Models.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Student");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("Scholarship_back.Outer.Models.HighSchool", b =>

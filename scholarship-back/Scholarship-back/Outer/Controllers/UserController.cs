@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
@@ -25,16 +26,16 @@ namespace Scholarship_back.Outer.Controllers
             _context = context;
             _token =  new TokenService(config);
         }
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
-            return Ok(_context.Users.ToList());
+            return Ok(await _context.Users.ToListAsync());
         }
         [Authorize(Roles = "Admin")]
         [HttpGet("{Id}")]
         public async Task<ActionResult<List<User>>> Get(int Id)
         {
+            if (_context.Users == null)return NotFound();
             var user = await _context.Users.FindAsync(Id);
             if (user == null)
             {
@@ -74,7 +75,7 @@ namespace Scholarship_back.Outer.Controllers
         [HttpPost("login")]
         public async Task<ActionResult> Login(UserLogin request)
         {
-            var user = _context.Users.Where(x => x.Email.Equals(request.Email)).FirstOrDefault();
+            var user = await _context.Users.Where(x => x.Email.Equals(request.Email)).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound("User not found.");

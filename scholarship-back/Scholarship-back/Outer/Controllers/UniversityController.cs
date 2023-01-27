@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
 using Scholarship_back.Outer.Models;
@@ -20,13 +21,15 @@ namespace Scholarship_back.Outer.Controllers
         [HttpGet]
         public async Task<ActionResult<List<University>>> Get()
         {
-            return Ok(_context.Universities.ToList());
+            if (_context.Universities == null) return NotFound();
+            return Ok(await _context.Universities.ToListAsync());
         }
         [Authorize(Roles = "SuperAdmin")]
         [HttpGet("faculty/{Id}")]
         public async Task<ActionResult<List<Faculty>>> GetByUni(int Id)
         {
-            var faculties = _context.Faculties.Where(x => x.UniversityId == Id).ToList();
+            if (_context.Faculties == null) return NotFound();
+            var faculties = await _context.Faculties.Where(x => x.UniversityId == Id).ToListAsync();
             if(faculties == null)
             {
                 return NotFound();
@@ -37,6 +40,7 @@ namespace Scholarship_back.Outer.Controllers
         [HttpGet("{Id}")]
         public async Task<ActionResult<University>> Get(int Id)
         {
+            if (_context.Universities == null) return NotFound();
             var uni = await _context.Universities.FindAsync(Id);
             if (uni == null)
             {
@@ -48,7 +52,8 @@ namespace Scholarship_back.Outer.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateUni(UniversityDto request)
         {
-            if (_context.Universities.Any(u => u.UniversityName == request.UniversityName))
+            if (_context.Universities == null) return NotFound();
+            if (await _context.Universities.AnyAsync(u => u.UniversityName == request.UniversityName))
             {
                 return BadRequest("University already exists.");
             }
@@ -69,7 +74,7 @@ namespace Scholarship_back.Outer.Controllers
         [HttpPost("faculty")]
         public async Task<ActionResult> CreateFaculty(FacultyDto request)
         {
-
+            if (_context.Faculties == null) return NotFound();
             var faculty = new Faculty
             {
                 FacultyName = request.FacultyName,

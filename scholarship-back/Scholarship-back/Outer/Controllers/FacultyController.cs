@@ -22,7 +22,7 @@ namespace Scholarship_back.Outer.Controllers
         [HttpGet]
         public async Task<ActionResult<List<FacultyType>>> Get()
         {
-            return Ok(_context.FacultyTypes.ToList());
+            return Ok(await _context.FacultyTypes.ToListAsync());
         }
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
