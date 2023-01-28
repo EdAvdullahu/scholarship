@@ -1,12 +1,13 @@
 ﻿using Scholarship_back.Outer.Dto;
 using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.ScholarshipManager.Interfaces
 {
     public interface ScholarshipPlan
     {
-        public void setCriteria(int id);
-        public void setCategory(int id);
+        public CriterionScholarship setCriteria(int id);
+        public CategoryScholarship setCategory(int id);
         public void setType(int id);
         public void setFaculty(FacultyInfo faculty);
         public void setValue(double val);

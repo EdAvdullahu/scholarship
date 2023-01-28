@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Scholarship_back.Data;
 
@@ -11,9 +12,10 @@ using Scholarship_back.Data;
 namespace Scholarship_back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230128102841_ScholarshipManagementV4")]
+    partial class ScholarshipManagementV4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,16 +384,7 @@ namespace Scholarship_back.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FacultyTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ScholarshipTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
                     b.Property<double>("Value")

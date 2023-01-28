@@ -17,14 +17,14 @@ namespace Scholarship_back.Outer.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet]
         public async Task<ActionResult<List<University>>> Get()
         {
             if (_context.Universities == null) return NotFound();
             return Ok(await _context.Universities.ToListAsync());
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet("faculty/{Id}")]
         public async Task<ActionResult<List<Faculty>>> GetByUni(int Id)
         {
@@ -36,7 +36,7 @@ namespace Scholarship_back.Outer.Controllers
             }
             return Ok(faculties);
         }
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "Superadmin,Admin")]
         [HttpGet("{Id}")]
         public async Task<ActionResult<University>> Get(int Id)
         {
@@ -48,7 +48,7 @@ namespace Scholarship_back.Outer.Controllers
             }
             return Ok(uni);
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost]
         public async Task<ActionResult> CreateUni(UniversityDto request)
         {
@@ -70,7 +70,7 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok("University was created successfully");
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost("faculty")]
         public async Task<ActionResult> CreateFaculty(FacultyDto request)
         {

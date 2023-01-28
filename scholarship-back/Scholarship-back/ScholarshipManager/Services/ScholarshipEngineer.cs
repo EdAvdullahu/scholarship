@@ -2,13 +2,13 @@
 using Scholarship_back.ScholarshipManager.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.ScholarshipManager.Services
 {
     public class ScholarshipEngineer
     {
         ScholarshipBuilder _scholarshipBuilder;
-        DataContext _context;
         public ScholarshipEngineer(ScholarshipBuilder scholarshipBuilder)
         {
             _scholarshipBuilder = scholarshipBuilder;
@@ -17,14 +17,23 @@ namespace Scholarship_back.ScholarshipManager.Services
         {
             return _scholarshipBuilder.getScholarship();
         }
+        public ListsDto getLists()
+        {
+            ListsDto temp = new ListsDto
+            {
+                CategoryList = _scholarshipBuilder.GetCategories(),
+                CriteriaList = _scholarshipBuilder.GetCriterias()
+            };
+            return temp;
+        }
         public void constructScholarship(ScholarshipDto scholarshipDto)
         {
-            _scholarshipBuilder.buildCriterion(scholarshipDto.CriteriaList);
             _scholarshipBuilder.buildFaculty(scholarshipDto.Faculty);
             _scholarshipBuilder.buildValue(scholarshipDto.Value);
             _scholarshipBuilder.buildDescription(scholarshipDto.Description);
-            _scholarshipBuilder.buildCategory();
-            _scholarshipBuilder.buildType();
+            _scholarshipBuilder.buildCriterion(scholarshipDto.CriteriaList);
+            _scholarshipBuilder.buildCategory(scholarshipDto.CategoryList);
+            _scholarshipBuilder.buildType(scholarshipDto.TypeId);
         }
 
     }

@@ -1,4 +1,6 @@
-﻿namespace Scholarship_back.ScholarshipManager.Models
+﻿using Scholarship_back.Outer.Models;
+
+namespace Scholarship_back.ScholarshipManager.Models
 {
     public class Category
     {

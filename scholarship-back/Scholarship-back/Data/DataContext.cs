@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Scholarship_back.Outer.Dto;
 using Scholarship_back.Outer.Models;
+using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.Data
 {
-    public class DataContext: DbContext  
+    public class DataContext: DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -21,6 +24,15 @@ namespace Scholarship_back.Data
         public DbSet<GradeStudentSummary>? GradeStudentSummaries { get; set; } 
         public DbSet<FacultyPriority>? FacultyPriorities { get; set; }
         public DbSet<HighSchoolPriority>? HighSchoolPriorities { get; set; }
+
+
+        // Scholarship
+        public DbSet<Scholarship> Scholarships { get; set; }
+        public DbSet<ScholarshipType> ScholarshipTypes { get; set; }
+        public DbSet<Criterion> Criterion { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryScholarship> ScholarshipCategories { get; set; }
+        public DbSet<CriterionScholarship> ScholarshipCriterias { get; set; }
 
     }
 }

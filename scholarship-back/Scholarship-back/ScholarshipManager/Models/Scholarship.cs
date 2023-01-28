@@ -1,34 +1,45 @@
 ﻿using Scholarship_back.Outer.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.ScholarshipManager.Models
 {
     public class Scholarship : ScholarshipPlan
     {
-        private int Id { get; set; }
-        private string Description { get; set; } = string.Empty;
-        private double Value { get; set; }
-        private List<Category>? Categories { get; set; }
-        private List<int> CategoryList { get; set; }
-        private List<Criterion>? Criterias { get; set; }
-        private List<int> CriteriaList { get; set; }
-        private ScholarshipType? ScholarshipType { get; set; }
-        private int ScholarshipTypeId { get; set; }
-        private FacultyInfo Faculty { get; set; }
+        public int Id { get; set; } = 0;
+        public string Description { get; set; } = string.Empty;
+        public double Value { get; set; }
+        public ScholarshipType? ScholarshipType { get; set; }
+        public int ScholarshipTypeId { get; set; }
+        public int FacultyId { get; set; }
+        public int UniversityId { get; set; }
+        public int FacultyTypeId { get; set; }
 
-        public void setCategory(int id)
+        public CategoryScholarship setCategory(int id)
         {
-            CategoryList.Add(id);
+            CategoryScholarship categoryScholarship = new CategoryScholarship
+            {
+                ScholarshipId = Id,
+                CategoryId = id
+            };
+            return categoryScholarship;
         }
 
-        public void setCriteria(int id)
+        public CriterionScholarship setCriteria(int id)
         {
-            CriteriaList.Add(id);
+            CriterionScholarship criterionScholarship = new CriterionScholarship
+            {
+                ScholarshipId = Id,
+                CriterionId = id
+            };
+            return criterionScholarship;
         }
 
         public void setFaculty(FacultyInfo faculty)
         {
-            Faculty = faculty;
+            FacultyId = faculty.FacultyId;
+            FacultyTypeId = faculty.FacultyTypeId;
+            UniversityId = faculty.UniversityId;
         }
 
         public void setType(int id)

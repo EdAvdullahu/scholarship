@@ -2,24 +2,37 @@
 using Scholarship_back.ScholarshipManager.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.ScholarshipManager.Services
 {
     public class HighSchoolScholarshipBuilder : ScholarshipBuilder
     {
         private Scholarship _scholarship;
-        public void buildCategory()
+        List<CriterionScholarship> _criterions = new List<CriterionScholarship>();
+        List<CategoryScholarship> _categories = new List<CategoryScholarship>();
+        public HighSchoolScholarshipBuilder()
         {
-            /*
-             to implement in the future
-             */
+            _scholarship = new Scholarship { };
+        }
+        public void buildCategory(ListDto list)
+        {
+            CategoryScholarship temp;
+            for (int i = 0; i < list.getLength(); i++)
+            {
+                temp = _scholarship.setCategory(list.getByIndex(i));
+                _categories.Add(temp);
+            }
         }
 
         public void buildCriterion(ListDto list)
         {
+            List<CriterionScholarship> criterions = new List<CriterionScholarship>();
+            CriterionScholarship temp;
             for (int i = 0; i < list.getLength(); i++)
             {
-                _scholarship.setCriteria(list.getByIndex(i));
+                temp = _scholarship.setCriteria(list.getByIndex(i));
+                _criterions.Add(temp);
             }
         }
 
@@ -28,13 +41,9 @@ namespace Scholarship_back.ScholarshipManager.Services
             _scholarship.setFaculty(faculty);
         }
 
-        public void buildType()
+        public void buildType(int id)
         {
-            /**
-             * Scholarship.setType();
-             * TO DO change logic
-             */
-            _scholarship.setType(0);
+            _scholarship.setType(id);
         }
         public void buildDescription(string description)
         {
@@ -47,6 +56,14 @@ namespace Scholarship_back.ScholarshipManager.Services
         public Scholarship getScholarship()
         {
             return _scholarship;
+        }
+        public List<CriterionScholarship> GetCriterias()
+        {
+            return _criterions;
+        }
+        public List<CategoryScholarship> GetCategories()
+        {
+            return _categories;
         }
     }
 }

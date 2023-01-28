@@ -19,7 +19,11 @@ namespace Scholarship_back.Outer.Interfaces
         }
         public FacultyInfo FacultyToInfo(int Id)
         {
-            var faculty = _context.Faculties.Find(Id);
+            Faculty faculty = _context.Faculties.Where(x=>x.Id==Id).FirstOrDefault();
+            if(faculty == null)
+            {
+                return null;
+            }
             FacultyInfo info = new FacultyInfo
             {
                 FacultyId = faculty.Id,

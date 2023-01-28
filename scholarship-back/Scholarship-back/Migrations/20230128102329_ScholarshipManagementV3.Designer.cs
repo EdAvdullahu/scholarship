@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Scholarship_back.Data;
 
@@ -11,9 +12,10 @@ using Scholarship_back.Data;
 namespace Scholarship_back.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230128102329_ScholarshipManagementV3")]
+    partial class ScholarshipManagementV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,28 @@ namespace Scholarship_back.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Scholarship_back.Outer.Dto.FacultyInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacultyTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FacultyInfo");
+                });
 
             modelBuilder.Entity("Scholarship_back.Outer.Models.Faculty", b =>
                 {
@@ -385,19 +409,15 @@ namespace Scholarship_back.Migrations
                     b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FacultyTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ScholarshipTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
 
                     b.HasIndex("ScholarshipTypeId");
 
@@ -576,11 +596,19 @@ namespace Scholarship_back.Migrations
 
             modelBuilder.Entity("Scholarship_back.ScholarshipManager.Models.Scholarship", b =>
                 {
+                    b.HasOne("Scholarship_back.Outer.Dto.FacultyInfo", "Faculty")
+                        .WithMany()
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Scholarship_back.ScholarshipManager.Models.ScholarshipType", "ScholarshipType")
                         .WithMany()
                         .HasForeignKey("ScholarshipTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Faculty");
 
                     b.Navigation("ScholarshipType");
                 });

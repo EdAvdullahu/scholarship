@@ -1,4 +1,7 @@
-﻿namespace Scholarship_back.Outer.Dto
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Scholarship_back.Outer.Dto
 {
     public class FacultyInfo
     {
