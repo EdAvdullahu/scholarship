@@ -17,14 +17,14 @@ namespace Scholarship_back.Outer.Interfaces
         {
             _context = context;
         }
-        public FacultyInfo FacultyToInfo(int Id)
+        public FacultyInfo? FacultyToInfo(int Id)
         {
-            Faculty faculty = _context.Faculties.Where(x=>x.Id==Id).FirstOrDefault();
-            if(faculty == null)
+            Faculty faculty = _context.Faculties.Where(x => x.Id == Id).FirstOrDefault();
+            if (faculty == null)
             {
                 return null;
             }
-            FacultyInfo info = new FacultyInfo
+            FacultyInfo info = new()
             {
                 FacultyId = faculty.Id,
                 UniversityId = faculty.UniversityId,

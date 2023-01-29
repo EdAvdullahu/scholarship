@@ -1,11 +1,20 @@
-﻿using Scholarship_back.Outer.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using Scholarship_back.Data;
+using Scholarship_back.Outer.Dto;
+using Scholarship_back.Outer.Models;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models.Helpers;
 
 namespace Scholarship_back.ScholarshipManager.Models
 {
-    public class Scholarship : ScholarshipPlan
+    public class Scholarship : IScholarship, ScholarshipPlan
     {
+        private readonly DataContext _context;
+        public Scholarship(DataContext context)
+        {
+            _context = context;
+        }
+
         public int Id { get; set; } = 0;
         public string Description { get; set; } = string.Empty;
         public double Value { get; set; }
@@ -17,7 +26,7 @@ namespace Scholarship_back.ScholarshipManager.Models
 
         public CategoryScholarship setCategory(int id)
         {
-            CategoryScholarship categoryScholarship = new CategoryScholarship
+            CategoryScholarship categoryScholarship = new()
             {
                 ScholarshipId = Id,
                 CategoryId = id
@@ -53,6 +62,13 @@ namespace Scholarship_back.ScholarshipManager.Models
         public void setDescription(string description)
         {
             Description = description;
+        }
+
+        public Scholarship GetScholarshipById(int Id)
+        {
+            Scholarship scholarship = _context.Scholarships.Where(x => x.Id == Id).FirstOrDefault();
+
+            return scholarship;
         }
     }
 }

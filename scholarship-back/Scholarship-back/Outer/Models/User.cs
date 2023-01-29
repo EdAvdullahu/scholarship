@@ -8,7 +8,7 @@
     public byte[] PasswordHash { get; set; } = new byte[32];
     public byte[] PasswordSalt { get; set; } = new byte[32];
     public DateTime Bday { get; set; }
-    public string Role { get; set; } = String.Empty;
+    public string Role { get; set; } = string.Empty;
     public string Image { get; set; } = string.Empty;
 }
 }

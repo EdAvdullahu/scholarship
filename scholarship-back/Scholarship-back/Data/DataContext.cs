@@ -27,12 +27,12 @@ namespace Scholarship_back.Data
 
 
         // Scholarship
-        public DbSet<Scholarship> Scholarships { get; set; }
-        public DbSet<ScholarshipType> ScholarshipTypes { get; set; }
-        public DbSet<Criterion> Criterion { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryScholarship> ScholarshipCategories { get; set; }
-        public DbSet<CriterionScholarship> ScholarshipCriterias { get; set; }
+        public DbSet<Scholarship>? Scholarships { get; set; }
+        public DbSet<ScholarshipType>? ScholarshipTypes { get; set; }
+        public DbSet<Criterion>? Criterion { get; set; }
+        public DbSet<Category>? Categories { get; set; }
+        public DbSet<CategoryScholarship>? ScholarshipCategories { get; set; }
+        public DbSet<CriterionScholarship>? ScholarshipCriterias { get; set; }
 
     }
 }
