@@ -1,21 +1,9 @@
+const BASE_URL = "https://localhost:7203/api";
+const useBasePath = (path) => `${BASE_URL}/${path}`;
 export const API_ENDPOINTS = {
- USER: "User",
- SHTETI: "Shteti",
- QYTETI: "Qyteti",
- GJINIA: "Gjinia",
- ARTIKULLI: "Artikulli",
- TIPIARTIKULLIT: "TipiArtikullit",
- LLOJIARTIKULIT: "LlojiArtikullit",
- LOKACIONI: "Lokacioni",
- HOTEL: "Hoteli",
- RESTORANT: "Restaurant",
- ROOM: "Dhoma",
- LLOJIDHOMES: "LlojiDhomes",
- MENU: "Menu",
- MENUITEM: "MenuItem",
- SPONSOR: "Sponsors",
- RESERVATIONS: "Rezervimi",
- ARRITJET: "Achievements",
- FAKTE: "HoteliFakte",
- CONTACT: "ContactUs",
+ USER: {
+  NULL: () => useBasePath("User"),
+  USER_LOGIN: () => useBasePath("User/login"),
+  USER_SIGNIN: () => useBasePath("User/register"),
+ },
 };

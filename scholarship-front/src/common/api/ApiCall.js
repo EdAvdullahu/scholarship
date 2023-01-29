@@ -1,9 +1,21 @@
+const token = getCookie("token");
 import axios from "axios";
-const BASE_URL = "https://28e9528d-f483-4bca-84a1-e0d10bcf886d.mock.pstmn.io/";
-export const callApi = (endpoint) => {
- let url = BASE_URL + "/" + endpoint;
- console.log(url);
- return {
-  fetchAll: () => axios.get(BASE_URL),
- };
+import { getCookie } from "../services/utilities.service";
+export default {
+ get(endpoint) {
+  return axios.get(endpoint, { headers: { Authorization: `bearer ${token}` } });
+ },
+ post(endpoint, params) {
+  return axios.post(endpoint, params, {
+   headers: { Authorization: `bearer ${token}` },
+  });
+ },
+ put(endpoint, params) {
+  return axios.put(endpoint, params, {
+   headers: { Authorization: `bearer ${token}` },
+  });
+ },
+ noAuth(endpoint, params) {
+  return axios.post(endpoint, params);
+ },
 };

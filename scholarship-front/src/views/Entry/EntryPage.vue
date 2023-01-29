@@ -3,7 +3,8 @@
   <div class="main-inner">
    <div class="info" :class="[this.signUp ? 'info__right' : '']">
     <h2>title in here</h2>
-    <div>
+    <div class="info-inner">
+     <img src="../../assets/Images/loginImage.jpeg" alt="logoImage" />
      One of the cool things about this font generator is that you can choose
      from more than 20 different styles. That means you can find a unique flair
      that perfectly fits what you’re trying to say. To use the font generator on
@@ -53,7 +54,7 @@ export default {
 </script>
 
 <style scoped>
-@import '@/assets/Variables.css';
+@import "@/assets/Variables.css";
 .main {
  display: flex;
  flex-direction: row;
@@ -104,6 +105,10 @@ export default {
 .welcome__left {
  animation: slideLeft 400ms;
  animation-fill-mode: forwards;
+}
+.info-inner {
+ display: flex;
+ flex-direction: column;
 }
 @keyframes slideRightBack {
  from {

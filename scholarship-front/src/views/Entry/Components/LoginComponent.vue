@@ -30,8 +30,10 @@
 <script>
 import { mapStores } from "pinia";
 import { useLoginStore } from "@/store/useLoginStore";
-import { ElLoading } from 'element-plus'
-
+import { ElLoading, ElMessage } from "element-plus";
+import { API_ENDPOINTS } from "../../../common/api/Endpoints";
+import callApi from "../../../common/api/ApiCall";
+import { setCookie } from "@/common/services/utilities.service";
 export default {
  data() {
   return {
@@ -77,24 +79,51 @@ export default {
    form.validate((valid) => {
     if (valid) {
      const load = ElLoading.service({
-       lock: true,
-       text: 'Loading...',
-       background: 'rgba(0, 0, 0, 0.7)',
+      lock: true,
+      text: "Loading...",
+      background: "rgba(0, 0, 0, 0.7)",
      });
-     this.loginStore.logIn().then(() => {
-       setTimeout(()=>{
-         load.close();
-         this.goHome();
-       },2000)
-     });
+     let user = {
+      email: this.ruleForm.email,
+      password: this.ruleForm.password,
+     };
+     callApi
+      .noAuth(API_ENDPOINTS.USER.USER_LOGIN(), user)
+      .then((res) => {
+       console.log(res);
+       if (res.status !== 200) {
+        ElMessage.error("Bad Request");
+        return;
+       } else {
+        ElMessage({
+         message: "user loged in successfully",
+         type: "success",
+        });
+       }
+       return res;
+      })
+      .then((res) => {
+       this.loginStore.logIn(res.data);
+       setCookie("token", res.data.token);
+       setCookie("role", res.data.role);
+       setCookie("name", res.data.name);
+       setCookie("email", res.data.email);
+      })
+      .catch((error) => {
+       ElMessage.error(error.response.data);
+      })
+      .finally(() => {
+       load.close();
+       this.goHome();
+      });
     } else {
      return false;
     }
    });
   },
-   goHome(){
-    this.$router.push('/home');
-   }
+  goHome() {
+   this.$router.push("/home");
+  },
  },
  computed: {
   ...mapStores(useLoginStore),
