@@ -9,11 +9,12 @@
  padding: 0;
  width: 100%;
  height: 100%;
+ display: flex;
 }
 
 body {
  margin: 0;
  padding: 0;
- background-color: var(--mainColor1);
+ overflow: hidden;
 }
 </style>
