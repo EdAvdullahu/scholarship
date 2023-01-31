@@ -1,4 +1,6 @@
-﻿using Scholarship_back.Outer.Dto;
+﻿using Microsoft.AspNetCore.Mvc;
+using Scholarship_back.Data;
+using Scholarship_back.Outer.Dto;
 using Scholarship_back.ScholarshipManager.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models;
@@ -8,12 +10,12 @@ namespace Scholarship_back.ScholarshipManager.Services
 {
     public class HighSchoolScholarshipBuilder : ScholarshipBuilder
     {
-        private Scholarship _scholarship;
+        private ScholarshipService _scholarship;
         List<CriterionScholarship> _criterions = new List<CriterionScholarship>();
         List<CategoryScholarship> _categories = new List<CategoryScholarship>();
         public HighSchoolScholarshipBuilder()
         {
-            _scholarship = new Scholarship { };
+            _scholarship = new ScholarshipService();
         }
         public void buildCategory(ListDto list)
         {
@@ -27,7 +29,6 @@ namespace Scholarship_back.ScholarshipManager.Services
 
         public void buildCriterion(ListDto list)
         {
-            List<CriterionScholarship> criterions = new List<CriterionScholarship>();
             CriterionScholarship temp;
             for (int i = 0; i < list.getLength(); i++)
             {
@@ -36,9 +37,9 @@ namespace Scholarship_back.ScholarshipManager.Services
             }
         }
 
-        public void buildFaculty(FacultyInfo faculty)
+        public void buildFaculty(int id)
         {
-            _scholarship.setFaculty(faculty);
+            _scholarship.setFaculty(id);
         }
 
         public void buildType(int id)
@@ -55,7 +56,7 @@ namespace Scholarship_back.ScholarshipManager.Services
         }
         public Scholarship getScholarship()
         {
-            return _scholarship;
+            return _scholarship.getScholarship();
         }
         public List<CriterionScholarship> GetCriterias()
         {

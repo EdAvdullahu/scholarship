@@ -7,7 +7,7 @@ namespace Scholarship_back.ScholarshipManager.Interfaces
 {
     public class IScholarship
     {
-        public static Scholarship IdentityInsert(Scholarship sch)
+        /*public static Scholarship IdentityInsert(Scholarship sch)
         {
             Scholarship scholarship = new Scholarship
             {
@@ -18,6 +18,6 @@ namespace Scholarship_back.ScholarshipManager.Interfaces
                 Description = sch.Description,
             };
             return scholarship;
-        }
+        }*/
     }
 }

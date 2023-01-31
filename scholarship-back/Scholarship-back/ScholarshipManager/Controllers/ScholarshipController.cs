@@ -10,7 +10,9 @@ using Scholarship_back.Outer.Models;
 using Scholarship_back.ScholarshipManager.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.ScholarshipManager.Models.Helpers;
 using Scholarship_back.ScholarshipManager.Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Scholarship_back.ScholarshipManager.Controllers
 {
@@ -44,22 +46,30 @@ namespace Scholarship_back.ScholarshipManager.Controllers
         {
             return Ok(await _context.ScholarshipTypes.ToListAsync());
         }
+        [HttpGet("criteria")]
+        public async Task<ActionResult<List<ScholarshipType>>> GetCriteria()
+        {
+            return Ok(await _context.Criterion.ToListAsync());
+        }
+        [HttpGet("criteria/{id}")]
+        public async Task<ActionResult<List<CriterionScholarship>>> GetCriteria(int id)
+        {
+            return Ok(await _context.ScholarshipCriterias.Where(x=>x.ScholarshipId==id).Include(x=>x.Criterion).ToListAsync());
+        }
+        [HttpGet("category/{id}")]
+        public async Task<ActionResult<List<CategoryScholarship>>> GetCategory(int id)
+        {
+            return Ok(await _context.ScholarshipCategories.Where(x => x.ScholarshipId == id).Include(x => x.Category).ToListAsync());
+        }
         [AllowAnonymous]
         [HttpPost("scholarship")]
-        public async Task<ActionResult<Scholarship>> CreateScholarship(ScholarshipSimpleDto request)
+        public async Task<ActionResult<ScholarshipReturnDto>> CreateScholarship(ScholarshipSimpleDto request)
         {
-            if(request == null)
-            {
-                return BadRequest("Reuest is null");
-            }
-            Scholarship scholarship = _builderService.buildHighSchoolScholarship(request);
-            
+            ScholarshipReturnDto scholarship = _builderService.buildHighSchoolScholarship(request);
             if (scholarship == null)
             {
                 return NotFound("something went bad");
             }
-            _context.Scholarships.Add(scholarship);
-            await _context.SaveChangesAsync();
             return Ok(scholarship);
 
         }
@@ -97,7 +107,8 @@ namespace Scholarship_back.ScholarshipManager.Controllers
             Criterion temp = new()
             {
                 Description = request.Description,
-                Name = request.Name
+                Name = request.Name,
+                requiresDocument = request.requiresDocument
             };
             if (temp == null) return NotFound();
             _context.Criterion.Add(temp);

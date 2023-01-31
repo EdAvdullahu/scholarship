@@ -19,7 +19,7 @@ namespace Scholarship_back.Controllers
         {
             if (files.Count == 0)
                 return BadRequest();
-            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, "UploadedFiles");
+            string directoryPath = Path.Combine(_webHostEnvironment.ContentRootPath, "ApplicationFiles");
 
             foreach (var file in files)
             {
@@ -29,7 +29,7 @@ namespace Scholarship_back.Controllers
                     file.CopyTo(stream);
                 }
             }
-            return Ok("Uploaded Successful");
+            return Ok(_webHostEnvironment.ContentRootPath);
         }
 
     }

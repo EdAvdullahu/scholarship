@@ -37,10 +37,8 @@ namespace Scholarship_back.Data
 
         //Application
         public DbSet<ApplicationForm>? ApplicationForms { get; set; }
-        public DbSet<Status>? Statuses { get; set; }
         public DbSet<Document>? Documents { get; set; }
         public DbSet<DocumentList>? DocumentLists { get; set; }
-        public DbSet<DocumentType>? DocumentTypes { get; set; }
         public DbSet<SubmitingDeadline>? SubmitingDeadlines { get; set; }    
     }
 }

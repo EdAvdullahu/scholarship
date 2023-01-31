@@ -15,19 +15,13 @@ namespace Scholarship_back.ScholarshipManager.Services
         {
             _context = context;
         }
-        public Scholarship buildHighSchoolScholarship(ScholarshipSimpleDto scholarship)
+        public ScholarshipReturnDto buildHighSchoolScholarship(ScholarshipSimpleDto scholarship)
         {
-            IFaculty infoS = new IFaculty(_context);
-            FacultyInfo fInfo = infoS.FacultyToInfo(scholarship.FacultyId);
-            if (fInfo == null)
-            {
-                return null;
-            }
             ScholarshipDto scholarshipDto = new ScholarshipDto
             {
-                CategoryList = getCategoriesForScholarship(),
+                CategoryList = getCategoriesForHSScholarship(),
                 CriteriaList = scholarship.CriteriaList,
-                Faculty = fInfo,
+                FacultyId = scholarship.FacultyId,
                 Value = scholarship.Value,
                 Description = scholarship.Description,
                 TypeId = 1
@@ -35,19 +29,10 @@ namespace Scholarship_back.ScholarshipManager.Services
             ScholarshipBuilder highSchoolScholarship = new HighSchoolScholarshipBuilder();
             ScholarshipEngineer engineer = new ScholarshipEngineer(highSchoolScholarship);
             engineer.constructScholarship(scholarshipDto);
-            Scholarship temp = engineer.GetScholarship();
-            saveScholarship(temp);
-            ListsDto tempLists = engineer.getLists();
-            saveCategories(tempLists.CategoryList, temp.Id);
-            saveCriteria(tempLists.CriteriaList, temp.Id);
-            return IScholarship.IdentityInsert(temp);
+            ScholarshipReturnDto temp = engineer.saveScholarship(_context);
+            return temp;
         }
-        public void saveScholarship(Scholarship req)
-        {
-            _context.Scholarships.Add(req);
-            _context.SaveChanges();
-        }
-        private ListDto getCategoriesForScholarship()
+        private ListDto getCategoriesForHSScholarship()
         {
             List<int> tempCategories = new List<int>();
             List<string> requiredCategoies = new List<string>(){"Yearly"};
@@ -67,32 +52,5 @@ namespace Scholarship_back.ScholarshipManager.Services
         {
             return _context.ScholarshipTypes.Where(x => x.Name.Equals("HighSchool")).FirstOrDefault();
         }*/
-        private void saveCategories(List<CategoryScholarship> list, int id)
-        {
-            for(int i = 0; i < list.Count; i++)
-            {
-                CategoryScholarship temp = new CategoryScholarship
-                {
-                    ScholarshipId = id,
-                    CategoryId = list[i].CategoryId,
-                };
-                _context.ScholarshipCategories.Add(temp);
-                _context.SaveChanges();
-            }
-            
-        }
-        private void saveCriteria(List<CriterionScholarship> list, int id)
-        {
-            for (int i = 0; i < list.Count; i++)
-            {
-                CriterionScholarship temp = new CriterionScholarship
-                {
-                    ScholarshipId = id,
-                    CriterionId = list[i].CriterionId,
-                };
-                _context.ScholarshipCriterias.Add(temp);
-                _context.SaveChanges();
-            }
-        }
     }
 }

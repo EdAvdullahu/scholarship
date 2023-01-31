@@ -7,34 +7,36 @@ namespace Scholarship_back.ScholarshipManager.Services
 {
     public class FacultyScholarshipBuilder
     {
-        private Scholarship _scholarship;
-        public List<CategoryScholarship> buildCategory(ListDto list)
+        private ScholarshipService _scholarship;
+        List<CriterionScholarship> _criterions = new List<CriterionScholarship>();
+        List<CategoryScholarship> _categories = new List<CategoryScholarship>();
+        public FacultyScholarshipBuilder()
         {
-            List<CategoryScholarship> categories = new List<CategoryScholarship>();
+            _scholarship = new ScholarshipService();
+        }
+        public void buildCategory(ListDto list)
+        {
             CategoryScholarship temp;
             for (int i = 0; i < list.getLength(); i++)
             {
                 temp = _scholarship.setCategory(list.getByIndex(i));
-                categories.Add(temp);
+                _categories.Add(temp);
             }
-            return categories;
         }
 
-        public List<CriterionScholarship> buildCriterion(ListDto list)
+        public void buildCriterion(ListDto list)
         {
-            List<CriterionScholarship> criterions = new List<CriterionScholarship>();
             CriterionScholarship temp;
             for (int i = 0; i < list.getLength(); i++)
             {
                 temp = _scholarship.setCriteria(list.getByIndex(i));
-                criterions.Add(temp);
+                _criterions.Add(temp);
             }
-            return criterions;
         }
 
-        public void buildFaculty(FacultyInfo faculty)
+        public void buildFaculty(int id)
         {
-            _scholarship.setFaculty(faculty);
+            _scholarship.setFaculty(id);
         }
 
         public void buildType(int id)
@@ -51,7 +53,15 @@ namespace Scholarship_back.ScholarshipManager.Services
         }
         public Scholarship getScholarship()
         {
-            return _scholarship;
+            return _scholarship.getScholarship();
+        }
+        public List<CriterionScholarship> GetCriterias()
+        {
+            return _criterions;
+        }
+        public List<CategoryScholarship> GetCategories()
+        {
+            return _categories;
         }
     }
 }

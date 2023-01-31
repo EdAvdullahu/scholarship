@@ -9,8 +9,9 @@ namespace Scholarship_back.ScholarshipManager.Interfaces
         public CriterionScholarship setCriteria(int id);
         public CategoryScholarship setCategory(int id);
         public void setType(int id);
-        public void setFaculty(FacultyInfo faculty);
+        public void setFaculty(int id);
         public void setValue(double val);
         public void setDescription(string description);
+        public Scholarship getScholarship();
     }
 }

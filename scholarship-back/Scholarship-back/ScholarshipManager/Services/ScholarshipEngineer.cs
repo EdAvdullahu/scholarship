@@ -1,4 +1,5 @@
-﻿using Scholarship_back.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Scholarship_back.Data;
 using Scholarship_back.ScholarshipManager.Dto;
 using Scholarship_back.ScholarshipManager.Interfaces;
 using Scholarship_back.ScholarshipManager.Models;
@@ -13,22 +14,21 @@ namespace Scholarship_back.ScholarshipManager.Services
         {
             _scholarshipBuilder = scholarshipBuilder;
         }
-        public Scholarship GetScholarship()
+        private Scholarship GetScholarship()
         {
             return _scholarshipBuilder.getScholarship();
         }
-        public ListsDto getLists()
+        private List<CategoryScholarship> getCategories()
         {
-            ListsDto temp = new ListsDto
-            {
-                CategoryList = _scholarshipBuilder.GetCategories(),
-                CriteriaList = _scholarshipBuilder.GetCriterias()
-            };
-            return temp;
+            return _scholarshipBuilder.GetCategories();
+        }
+        private List<CriterionScholarship> getCriterions()
+        {
+            return _scholarshipBuilder.GetCriterias();
         }
         public void constructScholarship(ScholarshipDto scholarshipDto)
         {
-            _scholarshipBuilder.buildFaculty(scholarshipDto.Faculty);
+            _scholarshipBuilder.buildFaculty(scholarshipDto.FacultyId);
             _scholarshipBuilder.buildValue(scholarshipDto.Value);
             _scholarshipBuilder.buildDescription(scholarshipDto.Description);
             _scholarshipBuilder.buildCriterion(scholarshipDto.CriteriaList);
@@ -36,5 +36,55 @@ namespace Scholarship_back.ScholarshipManager.Services
             _scholarshipBuilder.buildType(scholarshipDto.TypeId);
         }
 
+        public ScholarshipReturnDto saveScholarship(DataContext context)
+        {
+            Scholarship temp = GetScholarship();
+            if (temp == null)
+            {
+                return null;
+            }
+            DataContext _context = context;
+            ScholarshipReturnDto scholarshipDto = new ScholarshipReturnDto
+            {
+                CriteriaList = getCriterions(),
+                CategoryList = getCategories(),
+                FacultyId = temp.FacultyId,
+                Description = temp.Description,
+                Value = temp.Value,
+                TypeId = temp.ScholarshipTypeId,
+            };
+            _context.Scholarships.Add(temp);
+            _context.SaveChanges();
+            saveCategories(getCategories(), temp.Id, _context);
+            saveCriteria(getCriterions(), temp.Id, _context);
+            return scholarshipDto;
+        }
+        private void saveCategories(List<CategoryScholarship> list, int id,DataContext context)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                CategoryScholarship temp = new CategoryScholarship
+                {
+                    ScholarshipId = id,
+                    CategoryId = list[i].CategoryId,
+                };
+                context.ScholarshipCategories.Add(temp);
+                context.SaveChanges();
+            }
+
+        }
+        private void saveCriteria(List<CriterionScholarship> list, int id, DataContext context)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                CriterionScholarship temp = new CriterionScholarship
+                {
+                    ScholarshipId = id,
+                    CriterionId = list[i].CriterionId,
+                };
+                context.ScholarshipCriterias.Add(temp);
+                context.SaveChanges();
+            }
+        }
     }
 }
