@@ -3,7 +3,7 @@ using Scholarship_back.ScholarshipApplication.Models;
 
 namespace Scholarship_back.ScholarshipApplication.Services.SubmitionDeadlineService
 {
-    public class SubmitionDeadlineService : ISubmitionDeadlineService
+    public class SubmitionDeadlineService
     {
         //private readonly SubmitingDeadlineRepository _submitingDeadlineRepository;
 
