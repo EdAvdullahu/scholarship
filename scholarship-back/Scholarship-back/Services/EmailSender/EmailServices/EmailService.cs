@@ -2,9 +2,10 @@
 using MailKit.Security;
 using MimeKit;
 using MimeKit.Text;
-using Scholarship_back.ScholarshipApplication.Dto;
+using Scholarship_back.Services.EmailSender.Dto;
 
-namespace Scholarship_back.ScholarshipApplication.Services.EmailServices {
+namespace Scholarship_back.ScholarshipApplication.Services.EmailServices
+{
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
@@ -21,7 +22,6 @@ namespace Scholarship_back.ScholarshipApplication.Services.EmailServices {
             email.To.Add(MailboxAddress.Parse(request.To));
             email.Subject = request.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
-
             using var smtp = new SmtpClient();
             smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
             smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);

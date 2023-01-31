@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Scholarship_back.ScholarshipApplication.Dto;
+using Scholarship_back.Services.EmailSender.Dto;
 using Scholarship_back.ScholarshipApplication.Services.EmailServices;
 
 namespace Scholarship_back.Services.EmailSender.Controller

@@ -1,4 +1,4 @@
-﻿using Scholarship_back.ScholarshipApplication.Dto;
+﻿using Scholarship_back.Services.EmailSender.Dto;
 
 namespace Scholarship_back.ScholarshipApplication.Services.EmailServices
 {
