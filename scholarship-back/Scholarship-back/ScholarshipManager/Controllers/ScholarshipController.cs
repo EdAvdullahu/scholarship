@@ -18,8 +18,8 @@ namespace Scholarship_back.ScholarshipManager.Controllers
     [ApiController]
     public class ScholarshipController : ControllerBase
     {
-        private DataContext _context;
-        private BuilderService _builderService;
+        private readonly DataContext _context;
+        private readonly BuilderService _builderService;
 
         public ScholarshipController(DataContext context)
         {
@@ -35,12 +35,12 @@ namespace Scholarship_back.ScholarshipManager.Controllers
         [HttpGet("faculty/{id}")]
         public async Task<ActionResult<List<FacultyInfo>>> GetFaculty(int id)
         {
-            IFaculty infoS = new IFaculty(_context);
+            IFaculty infoS = new(_context);
             FacultyInfo info = infoS.FacultyToInfo(id);
             return Ok(info);
         }
         [HttpGet("types")]
-        public async Task<ActionResult<List<ScholarshipType>>> getTypes()
+        public async Task<ActionResult<List<ScholarshipType>>> GetTypes()
         {
             return Ok(await _context.ScholarshipTypes.ToListAsync());
         }
@@ -67,7 +67,7 @@ namespace Scholarship_back.ScholarshipManager.Controllers
         [HttpPost("type")]
         public async Task<ActionResult<ScholarshipType>> CreateType(ScholarshipTypeDto request)
         {
-            ScholarshipType temp = new ScholarshipType
+            ScholarshipType temp = new()
             {
                 Descriptin = request.Descriptin,
                 Name = request.Name
@@ -80,7 +80,7 @@ namespace Scholarship_back.ScholarshipManager.Controllers
         [HttpPost("category")]
         public async Task<ActionResult<Category>> CreateCategory(CategoryDto request)
         {
-            Category temp = new Category
+            Category temp = new()
             {
                 Description = request.Description,
                 Name = request.Name
@@ -93,11 +93,13 @@ namespace Scholarship_back.ScholarshipManager.Controllers
         [HttpPost("criterion")]
         public async Task<ActionResult<Criterion>> CreateCriterion(Criterion request)
         {
-            Criterion temp = new Criterion
+            if (request == null) return NotFound();
+            Criterion temp = new()
             {
                 Description = request.Description,
                 Name = request.Name
             };
+            if (temp == null) return NotFound();
             _context.Criterion.Add(temp);
             await _context.SaveChangesAsync();
             return Ok(temp);

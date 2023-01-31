@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Scholarship_back.ScholarshipApplication.Services.EmailServices;
+using Scholarship_back.ScholarshipApplication.Services.ApplicationFormService;
+using Scholarship_back.ScholarshipApplication.Services.SubmitionDeadlineService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,8 @@ builder.Services.AddSwaggerGen(options => {
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IApplicationFormService,ApplicationFormService>();
+//builder.Services.AddScoped<ISubmitionDeadlineService, SubmitionDeadlineService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -56,6 +60,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiUploadFile v1"));
 }
 
 app.UseHttpsRedirection();

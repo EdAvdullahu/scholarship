@@ -2,8 +2,8 @@
 {
     public class Document
     {
-        public int Id { get; set; }
-        public DocumentType? TypeDoc { get; set; }
-        public string Content { get; set; }= string.Empty;
+            public int Id { get; set; }
+            public DocumentType Type { get; set; }
+            public string? FilePath { get; set; }
     }
 }

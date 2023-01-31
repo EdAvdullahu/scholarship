@@ -4,15 +4,8 @@ using Scholarship_back.ScholarshipApplication.Interface;
 
 namespace Scholarship_back.Outer.Models
 {
-    public class Faculty: IFaculty
+    public class Faculty
     {
-        private DataContext _context;
-
-        public Faculty(DataContext context)
-        {
-            _context = context;
-        }
-
         public int Id { get; set; }
         public string FacultyName { get; set; } = string.Empty;
         public string FacultyDescription { get; set; } = string.Empty; 
@@ -20,12 +13,5 @@ namespace Scholarship_back.Outer.Models
         public int UniversityId { get; set; }
         public FacultyType? FacultyType { get; set; }    
         public int FacultyTypeId { get; set; }
-
-        public Faculty GetFacultyById(int Id)
-        {
-            Faculty faculty = _context.Faculties.Where(x => x.Id == Id).FirstOrDefault();
-
-            return faculty;
-        }
     }
 }

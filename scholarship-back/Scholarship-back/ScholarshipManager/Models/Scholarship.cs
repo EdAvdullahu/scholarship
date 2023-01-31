@@ -9,11 +9,6 @@ namespace Scholarship_back.ScholarshipManager.Models
 {
     public class Scholarship : IScholarship, ScholarshipPlan
     {
-        private readonly DataContext _context;
-        public Scholarship(DataContext context)
-        {
-            _context = context;
-        }
 
         public int Id { get; set; } = 0;
         public string Description { get; set; } = string.Empty;
@@ -36,7 +31,7 @@ namespace Scholarship_back.ScholarshipManager.Models
 
         public CriterionScholarship setCriteria(int id)
         {
-            CriterionScholarship criterionScholarship = new CriterionScholarship
+            CriterionScholarship criterionScholarship = new()
             {
                 ScholarshipId = Id,
                 CriterionId = id
@@ -62,13 +57,6 @@ namespace Scholarship_back.ScholarshipManager.Models
         public void setDescription(string description)
         {
             Description = description;
-        }
-
-        public Scholarship GetScholarshipById(int Id)
-        {
-            Scholarship scholarship = _context.Scholarships.Where(x => x.Id == Id).FirstOrDefault();
-
-            return scholarship;
         }
     }
 }
