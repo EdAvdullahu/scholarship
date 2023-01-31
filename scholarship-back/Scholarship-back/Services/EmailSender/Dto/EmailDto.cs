@@ -1,4 +1,4 @@
-﻿namespace Scholarship_back.ScholarshipApplication.Dto
+﻿namespace Scholarship_back.Services.EmailSender.Dto
 {
     public class EmailDto
     {

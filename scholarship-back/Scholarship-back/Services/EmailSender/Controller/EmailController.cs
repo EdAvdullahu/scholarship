@@ -2,7 +2,7 @@
 using Scholarship_back.ScholarshipApplication.Dto;
 using Scholarship_back.ScholarshipApplication.Services.EmailServices;
 
-namespace Scholarship_back.ScholarshipApplication.Controllers
+namespace Scholarship_back.Services.EmailSender.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
