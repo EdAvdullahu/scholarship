@@ -4,7 +4,7 @@ using MimeKit;
 using MimeKit.Text;
 using Scholarship_back.Services.EmailSender.Dto;
 
-namespace Scholarship_back.ScholarshipApplication.Services.EmailServices
+namespace Scholarship_back.ScholarshipApplication.Services.EmailSender
 {
     public class EmailService : IEmailService
     {

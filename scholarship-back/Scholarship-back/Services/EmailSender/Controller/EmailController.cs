@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Scholarship_back.Services.EmailSender.Dto;
-using Scholarship_back.ScholarshipApplication.Services.EmailServices;
+using Scholarship_back.ScholarshipApplication.Services.EmailSender;
 
 namespace Scholarship_back.Services.EmailSender.Controller
 {
@@ -21,5 +21,6 @@ namespace Scholarship_back.Services.EmailSender.Controller
             _emailService.SendEmail(request);
             return Ok();
         }
+
     }
 }

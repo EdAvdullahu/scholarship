@@ -45,6 +45,18 @@ namespace Scholarship_back.Outer.Controllers
             return Ok(user);
         }
         [AllowAnonymous]
+        [HttpGet("student")]
+        public async Task<ActionResult<List<User>>> GetStudent()
+        {
+            if (_context.Students == null) return NotFound();
+            var user = await _context.Students.ToListAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult> Register(UserDto request)
         {
@@ -108,6 +120,31 @@ namespace Scholarship_back.Outer.Controllers
                 return BadRequest("Not Found.");
             }
             user.Role = "Admin";
+            await _context.SaveChangesAsync();
+            return Ok("User promoted successfully");
+        }
+        [HttpPut("student/{id}")]
+        public async Task<ActionResult> PromoteToStudnet(int id, int HighSchoolId)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                return BadRequest("Not Found.");
+            }
+            Student temp = new Student
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Image=" ",
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt,
+                Email = user.Email,
+                Bday = user.Bday,
+                Role="Student",
+                HighSchoolId = HighSchoolId
+            };
+            _context.Users.Remove(user);
+            _context.Students.Add(temp);
             await _context.SaveChangesAsync();
             return Ok("User promoted successfully");
         }

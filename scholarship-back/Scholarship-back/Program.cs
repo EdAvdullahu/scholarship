@@ -5,7 +5,6 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Scholarship_back.ScholarshipApplication.Services.EmailServices;
 using Scholarship_back.ScholarshipApplication.Services.ApplicationFormService;
 using Scholarship_back.ScholarshipApplication.Services.SubmitionDeadlineService;
 
@@ -31,7 +30,6 @@ builder.Services.AddSwaggerGen(options => {
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IApplicationFormService,ApplicationFormService>();
 //builder.Services.AddScoped<ISubmitionDeadlineService, SubmitionDeadlineService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

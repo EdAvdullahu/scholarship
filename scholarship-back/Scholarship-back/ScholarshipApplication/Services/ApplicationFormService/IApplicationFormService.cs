@@ -1,7 +1,10 @@
-﻿namespace Scholarship_back.ScholarshipApplication.Services.ApplicationFormService
+﻿using Scholarship_back.ScholarshipApplication.Dto;
+using Scholarship_back.ScholarshipApplication.Models;
+
+namespace Scholarship_back.ScholarshipApplication.Services.ApplicationFormService
 {
     public interface IApplicationFormService
     {
-        void CreateApplicationForm(int documentListId, int studentId, int submitingDeadlineId);
+        void CreateApplicationForm(ApplicationFormDto application);
     }
 }

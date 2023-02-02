@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="ApplicationFiles\" />
-    <Folder Include="Services\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
 

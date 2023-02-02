@@ -18,7 +18,7 @@ namespace Scholarship_back.Outer.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet]
         public async Task<ActionResult<List<HighSchool>>> Get()
         {
@@ -29,7 +29,7 @@ namespace Scholarship_back.Outer.Controllers
             return Ok(await _context.HighSchools.ToListAsync());
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet("highschool/{Id}")]
         public async Task<ActionResult<List<Faculty>>> GetByHS(int Id)
         {
@@ -41,7 +41,7 @@ namespace Scholarship_back.Outer.Controllers
             }
             return Ok(highSchools);
         }
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        [Authorize(Roles = "Superadmin,Admin")]
         [HttpGet("{Id}")]
         public async Task<ActionResult<University>> Get(int Id)
         {
@@ -54,7 +54,7 @@ namespace Scholarship_back.Outer.Controllers
             return Ok(uni);
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost]
         public async Task<ActionResult> CreateUni(HighSchoolDto request)
         {
@@ -68,7 +68,8 @@ namespace Scholarship_back.Outer.Controllers
             var hS = new HighSchool
             {
                 HighSchoolName = request.HighSchoolName,
-                HighSchoolDescription = request.HighSchoolDescription
+                HighSchoolDescription = request.HighSchoolDescription,
+                HighSchoolTypeId = request.HighSchoolTypeId
             };
 
             _context.HighSchools.Add(hS);
@@ -76,7 +77,7 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok("HighSchool was created successfully");
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost("HighSchoolType")]
         public async Task<ActionResult> CreateFaculty(HighSchoolTypeDto request)
         {

@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NETCore.MailKit.Core;
+using Org.BouncyCastle.Bcpg;
 using Scholarship_back.Data;
 using Scholarship_back.Outer.Dto;
 using Scholarship_back.Outer.Interfaces;
-using Scholarship_back.Outer.Models;
 using Scholarship_back.ScholarshipApplication.Dto;
+using Scholarship_back.ScholarshipApplication.Interface;
 using Scholarship_back.ScholarshipApplication.Models;
 using Scholarship_back.ScholarshipApplication.Services.ApplicationFormService;
 using Scholarship_back.ScholarshipManager.Models;
+using Scholarship_back.Services.EmailSender.Dto;
+using IEmailService = Scholarship_back.ScholarshipApplication.Services.EmailSender.IEmailService;
 
 namespace Scholarship_back.ScholarshipApplication.Controllers
 {
@@ -16,20 +20,34 @@ namespace Scholarship_back.ScholarshipApplication.Controllers
     [ApiController]
     public class ApplicationController : ControllerBase
     {
-        private readonly IApplicationFormService _applicationFormService;
+        private readonly DataContext _context;
+        private readonly IApplicationFormService _applicationInterface;
 
-        public ApplicationController(IApplicationFormService applicationFormService)
+        public ApplicationController(DataContext context, IApplicationFormService applicationInterface)
         {
-            _applicationFormService = applicationFormService;
+            _context = context;
+            _applicationInterface = applicationInterface;
         }
-
-        [HttpPost]
-        public IActionResult AddApplicationForm(int documentListId, int studentId, int submitingDeadlineId)
+        [HttpGet]
+        public async Task<ActionResult<List<ApplicationForm>>> Get()
         {
-            var applicationForm = new ApplicationForm();
-            _applicationFormService.CreateApplicationForm(documentListId, studentId, submitingDeadlineId);
-            
-            return Ok("ApplicationForm created successfully");
+            return Ok(await _context.ApplicationForms.ToListAsync());
+        }
+        [HttpGet("documents")]
+        public async Task<ActionResult<List<Document>>> GetDocuments()
+        {
+            return Ok(await _context.Documents.ToListAsync());
+        }
+        [HttpGet("document-list")]
+        public async Task<ActionResult<List<DocumentList>>> GetDocumentList()
+        {
+            return Ok(await _context.DocumentLists.ToListAsync());
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddApplicationForm([FromForm]ApplicationFormDto request)
+        {
+            _applicationInterface.CreateApplicationForm(request);
+            return Ok("Application");
         }
 
     }

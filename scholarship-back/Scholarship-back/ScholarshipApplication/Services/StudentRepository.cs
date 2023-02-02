@@ -15,7 +15,7 @@ namespace Scholarship_back.ScholarshipApplication.Services
 
             public Student GetStudentById(int id)
             {
-                return _context.Students.Find(id);
+                return _context.Students.Where(x=>x.Id==id).FirstOrDefault();
             }
     }
 }
