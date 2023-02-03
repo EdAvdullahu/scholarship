@@ -1,33 +1,33 @@
 <template>
  <div class="main">
+  <back-drop></back-drop>
   <div class="main-inner">
    <div class="info" :class="[this.signUp ? 'info__right' : '']">
-    <h2>title in here</h2>
     <div class="info-inner">
      <img src="../../assets/Images/loginImage.jpeg" alt="logoImage" />
-     One of the cool things about this font generator is that you can choose
-     from more than 20 different styles. That means you can find a unique flair
-     that perfectly fits what you’re trying to say. To use the font generator on
-     a desktop, simply type (or copy/paste) your text into the “Type/paste your
-     text” field, and then select one of the font subsets. Once you click on a
-     subset, you’ll see a drop-down list with previews of each style. Find the
-     one you like, click the “Copy” button on the right, and then right-click or
-     key-shortcut your text anywhere online or offline that allows you to type
-     text. For mobile users on iPhone or Android, it’s even easier. Like
-     desktop, simply type or copy/paste your desired text into the input field,
-     and then choose your subset. Once you decide on the font, click the “Copy”
-     button and the text will automatically save to your clipboard. Then head
-     over to whatever platform you want, paste it in, and blow people’s minds
-     with your fancy text.
+     <div class="info-inner-backdrop"></div>
+     <div class="info-inner-text">
+      Desiderius <span> Erasmus </span> Roterodamus was a Dutch philosopher and
+      Catholic theologian who is considered one of the greatest scholars of the
+      northern Renaissance. As a Catholic priest, he was an important figure in
+      classical <span>scholarship</span> who wrote in a pure Latin style. Among
+      humanists he was given the sobriquet
+      <span>"Prince of the Humanists"</span>, and has been called
+      <span>"the crowning glory of the Christian humanists"</span>.
+     </div>
     </div>
    </div>
    <div class="welcome" :class="[this.signUp ? 'welcome__left' : '']">
-    <h3>Welcome to our scholorship program</h3>
-    <div v-if="!this.signUp"><login-component></login-component></div>
-    <div>
-     <span @click="changePage">
-      {{ this.signUp ? "Log in" : "Sign up" }}
-     </span>
+    <div style="background-color: #2841598e; color: var(--mainColor7)">
+     <h3>Welcome to our scholorship program</h3>
+    </div>
+    <div class="component">
+     <div v-if="!this.signUp"><login-component></login-component></div>
+     <div>
+      <span @click="changePage">
+       {{ this.signUp ? "Log in" : "Sign up" }}
+      </span>
+     </div>
     </div>
    </div>
   </div>
@@ -36,9 +36,11 @@
 
 <script>
 import LoginComponent from "./Components/LoginComponent.vue";
+import BackDrop from "../../components/BackDrop.vue";
 export default {
  components: {
   LoginComponent,
+  BackDrop,
  },
  data() {
   return {
@@ -60,26 +62,27 @@ export default {
  flex-direction: row;
  margin: 0;
  padding: 0;
- padding-top: 10vh;
+ padding-top: 5vh;
  width: 100%;
- height: auto;
- background-color: var(--mainColor1);
+ height: 100vh;
+ background-color: var(--mainColor2);
  color: var(--mainColor5);
  align-content: center;
  position: relative;
+ font-family: "Italy" sarif;
 }
 .info {
- border-radius: 1rem;
- background-color: var(--mainColor2);
+ border-radius: 2rem;
+ background-color: var(--mainColor1);
  display: flex;
  flex-direction: column;
- width: calc(50vw - 40px);
- height: 70vh;
- padding: 20px;
+ width: 30vw;
+ height: 90vh;
  margin: auto;
  z-index: 2;
  position: absolute;
- left: 10vw;
+ left: 20vw;
+ overflow: hidden;
  animation: slideRightBack 600ms;
  animation-fill-mode: forwards;
 }
@@ -88,19 +91,26 @@ export default {
  animation-fill-mode: forwards;
 }
 .welcome {
- background-color: var(--mainColor3);
- border-radius: 0 20px 20px 0;
- padding: 20px;
  position: absolute;
  display: flex;
  flex-direction: column;
  margin: 0;
- margin-top: 10vh;
- width: calc(30vw - 40px);
- right: 10vw;
+ margin-top: 15vh;
+ width: 30vw;
+ right: 20vw;
  animation: slideLeftBack 400ms;
  animation-fill-mode: forwards;
- height: 50vh;
+ height: 55vh;
+ align-items: center;
+}
+.component {
+ background-color: var(--mainColor8);
+ border-radius: 0 20px 20px 0;
+ padding: 20px;
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ height: 100%;
 }
 .welcome__left {
  animation: slideLeft 400ms;
@@ -109,6 +119,32 @@ export default {
 .info-inner {
  display: flex;
  flex-direction: column;
+ justify-content: center;
+ align-items: center;
+}
+img {
+ width: 100%;
+}
+.info-inner-text {
+ position: absolute;
+ bottom: 30px;
+ max-width: calc(100% - 30px);
+ color: var(--mainColor8);
+ font-size: 1.2rem;
+ font-style: italic;
+ font-weight: lighter;
+}
+span {
+ font-weight: bold;
+ font-size: 1.25rem;
+}
+.info-inner-backdrop {
+ position: absolute;
+ top: 0;
+ height: 85%;
+ width: 100%;
+ background: var(--mainColor1);
+ background: linear-gradient(180deg, #0d345b00 0%, var(--mainColor1) 100%);
 }
 @keyframes slideRightBack {
  from {

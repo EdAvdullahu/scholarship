@@ -12,11 +12,21 @@
     label-width="120px"
     class="demo-ruleForm"
    >
-    <el-form-item label="Email" prop="email">
-     <el-input v-model="ruleForm.email" type="email" autocomplete="off" />
+    <el-form-item prop="email">
+     <el-input
+      v-model="ruleForm.email"
+      placeholder="Email"
+      type="email"
+      autocomplete="off"
+     />
     </el-form-item>
-    <el-form-item label="Password" prop="password">
-     <el-input v-model="ruleForm.password" type="password" autocomplete="off" />
+    <el-form-item prop="password">
+     <el-input
+      v-model="ruleForm.password"
+      placeholder="Password"
+      type="password"
+      autocomplete="off"
+     />
     </el-form-item>
     <el-form-item>
      <el-button type="primary" @click="submitForm(this.$refs.ruleFormRef)"
@@ -110,6 +120,7 @@ export default {
        setCookie("email", res.data.email);
       })
       .catch((error) => {
+       console.log(error);
        ElMessage.error(error.response.data);
       })
       .finally(() => {
@@ -136,5 +147,106 @@ export default {
 .main-login {
  display: flex;
  flex-direction: column;
+}
+span {
+ font-weight: 900;
+ font-style: italic;
+ font-size: 1.7rem;
+ font-family: "Italiana", serif;
+ color: var(--mainColor2);
+}
+.main-login :nth-child(2) :first-child :first-child {
+ color: var(--mainColor4) !important;
+}
+.main-login :nth-child(2) :first-child :first-child button {
+ width: 100px;
+ border-radius: 50rem;
+ color: var(--mainColor8);
+ background-color: var(--mainColor2);
+ outline: none;
+ border: none;
+}
+.main-login :nth-child(2) :first-child :first-child button :first-child {
+ color: var(--mainColor8) !important;
+ font-style: italic;
+ font-size: 1.4rem;
+ font-family: "Italiana", serif;
+ font-weight: 800;
+}
+
+.main-login
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child
+ :first-child
+ :first-child {
+ border-radius: 50rem;
+ color: var(--mainColor8) !important;
+ background-color: var(--mainColor4);
+ outline: none;
+ border: none;
+}
+.main-login
+ :nth-child(2)
+ :first-child
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child {
+ border-radius: 50rem;
+ color: var(--mainColor8) !important;
+ background-color: var(--mainColor4);
+ outline: none;
+ border: none;
+}
+
+.main-login
+ :nth-child(2)
+ :first-child
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child::-webkit-input-placeholder,
+.main-login
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child
+ :first-child
+ :first-child::-webkit-input-placeholder {
+ color: var(--mainColor8);
+}
+.main-login
+ :nth-child(2)
+ :first-child
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child::-moz-placeholder,
+.main-login
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child
+ :first-child
+ :first-child::-moz-placeholder {
+ color: var(--mainColor8);
+}
+.main-login
+ :nth-child(2)
+ :first-child
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child:-ms-input-placeholder,
+.main-login
+ :nth-child(2)
+ :first-child
+ :first-child
+ :first-child
+ :first-child
+ :first-child:-ms-input-placeholder {
+ color: var(--mainColor8);
 }
 </style>

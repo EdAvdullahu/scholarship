@@ -6,4 +6,8 @@
  --mainColor5: #a6c4de;
  --mainColor6: #000000;
  --mainColor7: #ffffff;
+ --mainColor8: #E4E4E6;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&family=League+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Della+Respira&display=swap');

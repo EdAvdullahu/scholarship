@@ -16,6 +16,7 @@ export default {
   });
  },
  noAuth(endpoint, params) {
+  console.log("endpoint", endpoint);
   return axios.post(endpoint, params);
  },
 };

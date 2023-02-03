@@ -16,5 +16,7 @@ body {
  margin: 0;
  padding: 0;
  overflow: hidden;
+ font-family: "Della Respira";
+ color: var(--mainColor8);
 }
 </style>

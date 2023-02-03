@@ -3,8 +3,11 @@
   <div style="grid-area: header"><the-navigation></the-navigation></div>
   <div style="grid-area: nav; z-index: 10"><the-header></the-header></div>
   <div class="content">
-   <router-view></router-view>
-   <the-footer></the-footer>
+   <div class="back-color">
+    <router-view></router-view>
+    <the-welcome></the-welcome>
+    <the-footer></the-footer>
+   </div>
   </div>
  </div>
 </template>
@@ -13,12 +16,14 @@
 import TheNavigation from "@/components/navigation/TheNavigation.vue";
 import TheHeader from "@/components/header/TheHeader.vue";
 import TheFooter from "@/components/footer/TheFooter.vue";
+import TheWelcome from "../components/welcome/TheWelcome.vue";
 export default {
  name: "MainVue",
  components: {
   TheNavigation,
   TheHeader,
   TheFooter,
+  TheWelcome,
  },
 };
 </script>
@@ -31,13 +36,15 @@ export default {
  display: grid;
  grid-template-areas: "nav header" "nav main";
 }
+.back-color {
+ padding: 30px;
+ background: var(--mainColor3);
+ background: linear-gradient(var(--mainColor3), var(--mainColor1));
+}
 .content {
  grid-area: main;
- padding: 30px;
- width: calc(100vw - 180px);
- height: calc(100vh - 130px);
- background: var(--mainColor3);
- background: linear-gradient(var(--mainColor3), var(--mainColor2));
+ max-width: calc(100vw - 120px);
+ max-height: calc(100vh - 70px);
  overflow-y: scroll;
  overflow-x: hidden;
 }
