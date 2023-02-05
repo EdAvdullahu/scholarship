@@ -18,14 +18,14 @@ namespace Scholarship_back.Outer.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "SuperAdmin")]
+        /*[Authorize(Roles = "Superadmin")]*/
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<GradeStudentSummary>>> Get()
         {
-            if (_context.Universities == null) return NotFound();
-            return Ok(await _context.Universities.ToListAsync());
+            return Ok(_context.GradeStudentSummaries.ToList());
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet("GradeStudent/{Id}")]
         public async Task<ActionResult<List<Faculty>>> GetById(int Id)
         {
@@ -37,17 +37,10 @@ namespace Scholarship_back.Outer.Controllers
             }
             return Ok(gradeStudent);
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost]
-        public async Task<ActionResult> CreateUni(GradeStudentSummary request)
+        public async Task<ActionResult> setGrade(GradeStudentSummaryDto request)
         {
-            if (_context.GradeStudentSummaries == null) return NotFound();
-            if (await _context.GradeStudentSummaries.AnyAsync(u => u.Id == request.Id))
-            {
-                return BadRequest("GradeStudent already exists.");
-            }
-
-
             var gSS = new GradeStudentSummary
             {
                 SubjectId = request.SubjectId,
@@ -58,10 +51,10 @@ namespace Scholarship_back.Outer.Controllers
             _context.GradeStudentSummaries.Add(gSS);
             await _context.SaveChangesAsync();
 
-            return Ok("GradeStudent was created successfully");
+            return Ok("Grade was added");
         }
 
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPut]
         public async Task<ActionResult<List<GradeStudentSummary>>> Edit(GradeStudentSummary gradeStudent)
         {
@@ -79,7 +72,7 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok(await _context.GradeStudentSummaries.ToListAsync());
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult<List<GradeStudentSummary>>> Delete(int id)
         {

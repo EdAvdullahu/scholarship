@@ -5,19 +5,9 @@ using Scholarship_back.ScholarshipManager.Models;
 
 namespace Scholarship_back.ScholarshipManager.Interfaces
 {
-    public class IScholarship
+    public interface IScholarship
     {
-        /*public static Scholarship IdentityInsert(Scholarship sch)
-        {
-            Scholarship scholarship = new Scholarship
-            {
-                UniversityId = sch.UniversityId,
-                FacultyId = sch.FacultyId,
-                FacultyTypeId = sch.FacultyTypeId,
-                Value = sch.Value,
-                Description = sch.Description,
-            };
-            return scholarship;
-        }*/
+        public Scholarship getScholarshipById(int id);
+        public List<Criterion> getCriteriaById(int id);
     }
 }

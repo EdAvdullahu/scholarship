@@ -7,6 +7,18 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Scholarship_back.ScholarshipApplication.Services.ApplicationFormService;
 using Scholarship_back.ScholarshipApplication.Services.SubmitionDeadlineService;
+using NETCore.MailKit.Core;
+using Scholarship_back.ScholarshipEvaluation.Interface;
+using Scholarship_back.ScholarshipEvaluation.Service;
+using Scholarship_back.ScholarshipManager.Interfaces;
+using Scholarship_back.ScholarshipManager.Services;
+using Scholarship_back.Outer.Interfaces;
+using Scholarship_back.Outer.Services;
+using Scholarship_back.ScholarshipApplication.Interface;
+using Scholarship_back.ScholarshipApplication.Services;
+using Scholarship_back.ScholarshipApplication.Services.EmailSender;
+using IEmailService = Scholarship_back.ScholarshipApplication.Services.EmailSender.IEmailService;
+using EmailService = Scholarship_back.ScholarshipApplication.Services.EmailSender.EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +42,15 @@ builder.Services.AddSwaggerGen(options => {
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddScoped<IApplicationFormService,ApplicationFormService>();
-//builder.Services.AddScoped<ISubmitionDeadlineService, SubmitionDeadlineService>();
+builder.Services.AddScoped<IStudent, IStudentService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IApplicationFormService, ApplicationFormService>();
+builder.Services.AddScoped<IVerification, Verification>();
+builder.Services.AddScoped<IScholarship, IScholarshipService>();
+builder.Services.AddScoped<FacultyInterface, FacultyService>();
+builder.Services.AddScoped<HighSchoolInterface, HighSchoolService>();
+builder.Services.AddScoped<IEApplicationForm, AllSubmitionsService>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

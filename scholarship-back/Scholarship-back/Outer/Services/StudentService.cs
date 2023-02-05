@@ -21,5 +21,10 @@ namespace Scholarship_back.Outer.Services
             };
             return studentBasicInfo;
         }
+
+        public Student getStudnetById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

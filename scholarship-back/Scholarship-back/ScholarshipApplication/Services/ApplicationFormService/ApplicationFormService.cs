@@ -61,6 +61,8 @@ namespace Scholarship_back.ScholarshipApplication.Services.ApplicationFormServic
             _context.ApplicationForms.Add(app);
             _context.SaveChanges();
             sendEmail(app);
+            DeadlineManagerService dead = new DeadlineManagerService();
+            dead.changeCounter(app.SubmitingDeadlineId, _context);
         }
         private int s(int id)
         {

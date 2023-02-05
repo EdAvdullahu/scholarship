@@ -18,13 +18,18 @@ namespace Scholarship_back.Outer.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpGet]
         public async Task<ActionResult<List<Subject>>> Get()
         {
             return Ok(await _context.Subjects.ToListAsync());
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [HttpGet("highschoolpriority")]
+        public async Task<ActionResult<List<HighSchoolPriority>>> GetHPrio()
+        {
+            return Ok(await _context.HighSchoolPriorities.ToListAsync());
+        }
+        [Authorize(Roles = "Superadmin")]
         [HttpPost]
         public async Task<ActionResult> createSubject(SubjectDto request)
         {
@@ -44,7 +49,7 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok("Subject was created successfully");
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost("highschoolpriority")]
         public async Task<ActionResult> addPriority(HighSchoolPriorityDto request)
         {
@@ -66,7 +71,7 @@ namespace Scholarship_back.Outer.Controllers
 
             return Ok("Priority was created successfully");
         }
-        [Authorize(Roles = "SuperAdmin")]
+        [Authorize(Roles = "Superadmin")]
         [HttpPost("facultyprioritypriority")]
         public async Task<ActionResult> addPriority(FacultyPriorityDto request)
         {
