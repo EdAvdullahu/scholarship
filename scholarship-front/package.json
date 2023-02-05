@@ -13,7 +13,8 @@
     "element-plus": "^2.2.26",
     "pinia": "^2.0.27",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue3-carousel": "^0.2.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

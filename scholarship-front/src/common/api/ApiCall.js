@@ -1,8 +1,11 @@
-const token = getCookie("token");
 import axios from "axios";
 import { getCookie } from "../services/utilities.service";
+
+const token = getCookie("token");
+
 export default {
  get(endpoint) {
+  console.log("endpoint", token);
   return axios.get(endpoint, { headers: { Authorization: `bearer ${token}` } });
  },
  post(endpoint, params) {

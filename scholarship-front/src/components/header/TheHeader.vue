@@ -6,9 +6,13 @@
   <div class="routes">
    <ul class="routes-list">
     <li class="link">
-     <router-link class="link-item" to="home">Home</router-link>
+     <router-link class="link-item" :to="{ name: 'home' }"> Home </router-link>
     </li>
-    <li>Home</li>
+    <li class="link">
+     <router-link class="link-item" :to="{ name: 'universities' }"
+      >Universities</router-link
+     >
+    </li>
     <li>Home</li>
     <li>Home</li>
     <li>Home</li>
@@ -56,7 +60,7 @@ export default {
 .link-item {
  text-decoration: none;
  color: var(--mainColor5);
- font-size: 1.3rem;
+ font-size: 1.2rem;
 }
 /*.router-link-active{*/
 /*  color: red;*/

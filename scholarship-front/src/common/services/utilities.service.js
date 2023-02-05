@@ -1,5 +1,5 @@
 export const getCookie = (name) => {
- return document.cookie.split(";").reduce((accumulator, currentValue) => {
+ return document.cookie.split("; ").reduce((accumulator, currentValue) => {
   const parts = currentValue.split("=");
   return parts[0] === name ? decodeURIComponent(parts[1]) : accumulator;
  }, null);
